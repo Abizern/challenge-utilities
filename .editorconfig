@@ -1,0 +1,36 @@
+# EditorConfig is awesome: https://editorconfig.org
+
+# Top-level configuration file
+root = true
+
+# Default: spaces, 2-space indentation
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+tab_width = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Makefiles require tabs
+[Makefile]
+indent_style = tab
+
+# Text-like files — don't trim trailing whitespace
+[*.{md,markdown,org}]
+trim_trailing_whitespace = false
+
+# Org-mode needs strict tab width
+[*.org]
+indent_style = space
+tab_width = 8
+
+# AoC puzzle inputs: keep exactly as downloaded
+[*/inputs/*.txt]
+insert_final_newline = false
+trim_trailing_whitespace = false
+
+# Lisp: let Emacs indent by Lisp's own rules.
+[*.{lisp,asd}]
+indent_size = unset

@@ -1,0 +1,51 @@
+* Challenge utilities
+Shared Common Lisp utilities for programming challenges, such as Advent of Code and Everybody Codes. Each set of solutions loads this library instead of keeping its own copy, so a utility written for one contest is there for the others.
+
+** Layout
+- =challenge-utilities.asd= defines an ASDF =package-inferred-system=. Each file defines one package named after its path, and its =defpackage= clauses are its dependencies.
+- Each group of utilities is in its own file at the top level, e.g. =grid.lisp= (package =challenge-utilities/grid=).
+- =all.lisp= (package =challenge-utilities/all=, nicknamed =challenge-utilities= and =c-utils=) re-exports all of them.
+- Tests (FiveAM) live in =test/=, e.g. =test/grid.lisp= (package =challenge-utilities/test/grid=).
+
+Anything specific to one contest, such as reading its puzzle input, stays in that contest's repository.
+
+** Setup
+The repository lives in =~/Developer/Lisp/=, which is one of Quicklisp's local project directories (set in =~/.sbclrc=). If Quicklisp doesn't find it, run =(ql:register-local-projects)= once.
+
+** Dependencies
+These libraries come from Quicklisp:
+- alexandria
+- cl-ppcre
+- ironclad (MD5 hashes)
+- sqlite (database operations)
+- sxql (a DSL for writing SQL statements)
+- fiveam (tests only)
+
+=(ql:quickload "challenge-utilities")= downloads any of these that are missing, except fiveam. Run =(ql:quickload "challenge-utilities/test")= once before running the tests.
+
+** Usage
+In a solutions system, re-export the library from that system's own utilities package, alongside anything specific to the contest:
+
+#+begin_src lisp
+(uiop:define-package :aoc/utils
+  (:use :cl)
+  (:use-reexport :challenge-utilities)
+  (:use-reexport :aoc/utils/input))
+#+end_src
+
+A file that only needs one group can use it directly, e.g. =(:import-from :challenge-utilities/queue #:enqueue #:dequeue)=.
+
+=c-utils= is a nickname for use at the REPL, e.g. =(c-utils:transpose rows)=. Don't use it in a =defpackage=: ASDF works out a dependency's system from the package name, and there is no =c-utils= system.
+
+** Tests
+Run all tests with:
+
+ : (asdf:test-system "challenge-utilities")
+
+Run a single suite, once the tests are loaded with =(ql:quickload "challenge-utilities/test")=, by naming it with its package:
+
+ : (fiveam:run! 'challenge-utilities/test/md5::md5)
+
+Several projects depend on this library, so run the tests after every change to it.
+
+To add tests for a utilities package, e.g. =lists.lisp=, create =test/lists.lisp= (package =challenge-utilities/test/lists=) with a suite defined =:in :challenge-utilities= (the root suite in =test/suite.lisp=), and add its package name to the =:depends-on= of =challenge-utilities/test= in =challenge-utilities.asd=. Worked examples from puzzle descriptions make good test cases.
