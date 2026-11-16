@@ -47,4 +47,5 @@ To add tests for a utilities package, e.g. `lists.lisp`:
 There's no build or lint tooling (tests are above). Development is interactive:
 
 - SBCL with Quicklisp (`~/.quicklisp`). The repo is in `~/Developer/Lisp/`, which `~/.sbclrc` adds to `ql:*local-project-directories*`, so there's no symlink.
+- The repo is public on GitHub at https://github.com/Abizern/challenge-utilities. Renaming or removing an export breaks any contest code that uses it, so check both contests when doing either.
 - A running image keeps the old `challenge-utilities` package after its exports change, so a new export looks undefined in a contest's re-export package until Lisp is restarted.

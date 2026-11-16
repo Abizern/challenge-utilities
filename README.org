@@ -10,7 +10,11 @@ Shared Common Lisp utilities for programming challenges, such as Advent of Code 
 Anything specific to one contest, such as reading its puzzle input, stays in that contest's repository.
 
 ** Setup
-The repository lives in =~/Developer/Lisp/=, which is one of Quicklisp's local project directories (set in =~/.sbclrc=). If Quicklisp doesn't find it, run =(ql:register-local-projects)= once.
+Clone the repository into Quicklisp's local projects:
+
+ : git clone https://github.com/Abizern/challenge-utilities.git ~/quicklisp/local-projects/challenge-utilities
+
+Any directory in =ql:*local-project-directories*= works, as does a symlink from one. If Quicklisp doesn't find it, run =(ql:register-local-projects)= once.
 
 ** Dependencies
 These libraries come from Quicklisp:
