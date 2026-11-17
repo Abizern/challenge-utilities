@@ -7,6 +7,7 @@
            #:lines-to-grid
            #:grid-rows
            #:grid-cols
+           #:copy-grid
            #:neighbours
            #:cell-neighbours
            #:cell-value
@@ -57,6 +58,13 @@ be the same length."
 (defun grid-cols (grid)
   "Return the number of columns of GRID."
   (array-dimension grid 1))
+
+(defun copy-grid (grid)
+  "Return a new grid the same size as GRID with the same value in each cell,
+so setting a cell in one doesn't change the other. The values themselves
+aren't copied: a cell holding a list or a structure shares it with GRID."
+  (make-grid (grid-rows grid) (grid-cols grid)
+             :initial-function (lambda (row col) (aref grid row col))))
 
 (defparameter *orthogonal* '((-1 . 0) (1 . 0) (0 . -1) (0 . 1))
   "Row and column offsets of the cells up, down, left and right of a cell.")

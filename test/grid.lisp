@@ -117,3 +117,13 @@
     (setf (cell-value grid '(1 . 0)) 5)
     (is (= 5 (aref grid 1 0)))
     (is (= 5 (cell-value grid '(1 . 0))))))
+
+(test copy-grid-has-the-same-cells
+  (let ((grid (lines-to-grid '("ab" "cd" "ef"))))
+    (is (equalp grid (copy-grid grid)))))
+
+(test copy-grid-is-a-separate-grid
+  (let* ((grid (make-grid 2 2 :initial-element 0))
+         (copy (copy-grid grid)))
+    (setf (aref copy 0 0) 1)
+    (is (= 0 (aref grid 0 0)))))
