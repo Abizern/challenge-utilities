@@ -3,6 +3,7 @@
 (uiop:define-package :challenge-utilities/lists
   (:use :cl)
   (:export #:digits
+           #:digits-to-number
            #:flip
            #:grid-symmetries
            #:last1
@@ -51,6 +52,12 @@ Returns NIL when LISTS is empty."
   "Return a list of the digits in STRING.
 Characters that are not digits are transformed into NIL."
   (map 'list #'digit-char-p string))
+
+(defun digits-to-number (lst)
+  "Return a decimal number by combining the digits in LST"
+  (reduce (lambda (acc n) (+ (* 10 acc) n))
+          lst
+          :initial-value 0))
 
 (defun ncycle (list)
   "Make LIST circular by pointing its last cons back to its first, and return

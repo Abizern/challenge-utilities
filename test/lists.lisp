@@ -112,3 +112,10 @@
   (is (equal 3 (last1 (list 1 2 3))))
   (is (equal 'a (last1 (list 'a))))
   (is (null (last1 nil))))
+
+(test digits-to-number
+  (is (equal 10 (digits-to-number (list 1 0))))
+  (is (equal 0 (digits-to-number nil)))
+  (is (equal 23 (digits-to-number (list 0 2 3))))
+  (signals type-error (digits-to-number (digits "1a2")))
+  (signals type-error (digits-to-number (list #\a #\b))))
