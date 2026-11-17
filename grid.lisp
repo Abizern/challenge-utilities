@@ -8,6 +8,8 @@
            #:grid-rows
            #:grid-cols
            #:neighbours
+           #:cell-neighbours
+           #:cell-value
            #:cells-matching
            #:print-grid))
 
@@ -73,6 +75,19 @@ well if DIAGONALS is true."
         for c = (+ col dc)
         when (array-in-bounds-p grid r c)
           collect (cons r c)))
+
+(defun cell-neighbours (grid cell &key diagonals)
+  "Return the neighbours of CELL, a (ROW . COL) cons such as CELLS-MATCHING
+returns, in the same way as NEIGHBOURS."
+  (neighbours grid (car cell) (cdr cell) :diagonals diagonals))
+
+(defun cell-value (grid cell)
+  "Return the value in GRID at CELL, a (ROW . COL) cons. SETF of it writes the
+value."
+  (aref grid (car cell) (cdr cell)))
+
+(defun (setf cell-value) (value grid cell)
+  (setf (aref grid (car cell) (cdr cell)) value))
 
 (defun cells-matching (grid predicate)
   "Return a list of the (ROW . COL) conses of the cells in GRID whose value satisfies

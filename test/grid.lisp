@@ -94,3 +94,26 @@
   (let ((grid (lines-to-grid nil)))
     (is (= 0 (grid-rows grid)))
     (is (= 0 (grid-cols grid)))))
+
+(test cell-neighbours-takes-a-cons
+  (let ((grid (make-grid 3 3)))
+    (is (equal (neighbours grid 0 1) (cell-neighbours grid '(0 . 1))))
+    (is (equal (neighbours grid 1 1 :diagonals t)
+               (cell-neighbours grid '(1 . 1) :diagonals t)))))
+
+(test cell-neighbours-of-cells-matching
+  (let ((grid (lines-to-grid '("..." ".#." "..."))))
+    (is (= 8 (length (cell-neighbours grid
+                                      (first (cells-matching grid (lambda (c) (char= c #\#))))
+                                      :diagonals t))))))
+
+(test cell-value-reads-a-cell
+  (let ((grid (lines-to-grid '("ab" "cd"))))
+    (is (char= #\b (cell-value grid '(0 . 1))))
+    (is (char= #\c (cell-value grid '(1 . 0))))))
+
+(test cell-value-is-setf-able
+  (let ((grid (make-grid 2 2 :initial-element 0)))
+    (setf (cell-value grid '(1 . 0)) 5)
+    (is (= 5 (aref grid 1 0)))
+    (is (= 5 (cell-value grid '(1 . 0))))))
