@@ -1,4 +1,6 @@
 * Challenge utilities
+[[https://github.com/Abizern/challenge-utilities/actions/workflows/test.yml][https://github.com/Abizern/challenge-utilities/actions/workflows/test.yml/badge.svg]]
+
 Shared Common Lisp utilities for programming challenges, such as Advent of Code and Everybody Codes. Each set of solutions loads this library instead of keeping its own copy, so a utility written for one contest is there for the others.
 
 ** Layout

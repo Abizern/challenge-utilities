@@ -1,0 +1,32 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install SBCL and SQLite
+        run: sudo apt-get update && sudo apt-get install -y sbcl libsqlite3-0
+
+      - name: Install Quicklisp
+        run: |
+          curl -sSO https://beta.quicklisp.org/quicklisp.lisp
+          sbcl --non-interactive --load quicklisp.lisp \
+               --eval '(quicklisp-quickstart:install)'
+
+      # test-system doesn't signal failure, so run the suite directly and
+      # exit non-zero when it fails.
+      - name: Run tests
+        run: |
+          sbcl --non-interactive \
+               --load ~/quicklisp/setup.lisp \
+               --eval '(push (uiop:getcwd) asdf:*central-registry*)' \
+               --eval '(ql:quickload "challenge-utilities/test")' \
+               --eval '(unless (uiop:symbol-call :fiveam :run! :challenge-utilities) (uiop:quit 1))'
