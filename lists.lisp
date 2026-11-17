@@ -2,12 +2,13 @@
 
 (uiop:define-package :challenge-utilities/lists
   (:use :cl)
-  (:export #:transpose
+  (:export #:digits
            #:flip
-           #:rotate-right
            #:grid-symmetries
-           #:digits
-           #:ncycle))
+           #:last1
+           #:ncycle
+           #:rotate-right
+           #:transpose))
 
 (in-package :challenge-utilities/lists)
 
@@ -57,3 +58,9 @@ it. LIST is modified."
   (when list
     (setf (cdr (last list)) list)
     list))
+
+(declaim (inline last1))
+(defun last1 (lst)
+  "Return the last element in LST. Unlike the built-in
+LAST function which returns a cons, this just returns the object."
+  (car (last lst)))

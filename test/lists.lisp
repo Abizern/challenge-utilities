@@ -107,3 +107,8 @@
 (test ncycle-unit-list
   (let ((c (ncycle (list 1))))
     (is-true (eq c (cdr c)))))
+
+(test last1
+  (is (equal 3 (last1 (list 1 2 3))))
+  (is (equal 'a (last1 (list 'a))))
+  (is (null (last1 nil))))
