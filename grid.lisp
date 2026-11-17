@@ -4,6 +4,7 @@
   (:use :cl)
   (:export #:make-grid
            #:make-grid-xy
+           #:lines-to-grid
            #:grid-rows
            #:grid-cols
            #:neighbours
@@ -34,6 +35,18 @@ Y."
              :initial-function (and initial-function
                                     (lambda (row col)
                                       (funcall initial-function col row)))))
+
+(defun lines-to-grid (lines &optional (cell-function #'identity))
+  "Return a grid with a row for each string in the sequence LINES and a column
+for each of its characters. CELL-FUNCTION is called with each character and
+returns the cell's value; the default keeps the characters. The lines must all
+be the same length."
+  (let ((lines (coerce lines 'vector)))
+    (make-grid (length lines)
+               (if (plusp (length lines)) (length (aref lines 0)) 0)
+               :initial-function (lambda (row col)
+                                   (funcall cell-function
+                                            (char (aref lines row) col))))))
 
 (defun grid-rows (grid)
   "Return the number of rows of GRID."

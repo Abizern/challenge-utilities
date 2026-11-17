@@ -74,3 +74,23 @@
     (is (string= ".#
 #.
 " (draw grid (lambda (n) (if (oddp n) #\# #\.)))))))
+
+(test lines-to-grid-keeps-the-characters
+  (let ((grid (lines-to-grid '("#.." "..#"))))
+    (is (= 2 (grid-rows grid)))
+    (is (= 3 (grid-cols grid)))
+    (is (char= #\# (aref grid 0 0)))
+    (is (char= #\# (aref grid 1 2)))))
+
+(test lines-to-grid-from-a-vector
+  (is (equalp #2A((#\a #\b) (#\c #\d))
+              (lines-to-grid #("ab" "cd")))))
+
+(test lines-to-grid-uses-the-cell-function
+  (is (equalp #2A((1 2) (3 4))
+              (lines-to-grid '("12" "34") #'digit-char-p))))
+
+(test lines-to-grid-of-no-lines
+  (let ((grid (lines-to-grid nil)))
+    (is (= 0 (grid-rows grid)))
+    (is (= 0 (grid-cols grid)))))
