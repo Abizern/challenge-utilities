@@ -81,3 +81,19 @@
 (test rect-area-same-point
   (is (= 1 (rect-area (make-rect-from-points (make-point-2d 3 4)
                                              (make-point-2d 3 4))))))
+
+(test rect-corners-ordered-points
+  (is (equal '(1 5 2 6) (rect-corners (make-rect-from-points (make-point-2d 1 2)
+                                                             (make-point-2d 5 6))))))
+
+(test rect-corners-unordered-points
+  (is (equal '(1 5 2 6) (rect-corners (make-rect-from-points (make-point-2d 5 2)
+                                                             (make-point-2d 1 6))))))
+
+(test rect-corners-negative-points
+  (is (equal '(-5 1 -2 6) (rect-corners (make-rect-from-points (make-point-2d -5 6)
+                                                               (make-point-2d 1 -2))))))
+
+(test rect-corners-same-point
+  (is (equal '(3 3 4 4) (rect-corners (make-rect-from-points (make-point-2d 3 4)
+                                                             (make-point-2d 3 4))))))

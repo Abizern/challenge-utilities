@@ -2,12 +2,13 @@
 
 (uiop:define-package :challenge-utilities/rect-2d
   (:use :cl)
-  (:export #:make-rect-from-points
-           #:r2-x1
+  (:export #:r2-x1
            #:r2-x2
            #:r2-y1
            #:r2-y2
-           #:rect-area))
+           #:rect-area
+           #:rect-corners
+           #:make-rect-from-points))
 
 (in-package :challenge-utilities/rect-2d)
 
@@ -26,6 +27,12 @@ X1 <= X2 and Y1 <= Y2."
                 :x2 (max (realpart a) (realpart b))
                 :y1 (min (imagpart a) (imagpart b))
                 :y2 (max (imagpart a) (imagpart b))))
+
+(declaim (ftype (function (rect-2d) list) rect-corners))
+(defun rect-corners (r)
+  "Return a list of the ordered boundaries of R
+(X1 X2 Y1 Y2)."
+  (list (r2-x1 r) (r2-x2 r) (r2-y1 r) (r2-y2 r)))
 
 (declaim (ftype (function (rect-2d) fixnum) rect-area))
 (defun rect-area (r)
