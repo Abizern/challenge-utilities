@@ -8,6 +8,7 @@
   (:use-reexport :challenge-utilities/numbers)
   (:use-reexport :challenge-utilities/point-2d)
   (:use-reexport :challenge-utilities/queue)
+  (:use-reexport :challenge-utilities/rect-2d)
   (:use-reexport :challenge-utilities/screen)
   (:use-reexport :challenge-utilities/sqlite)
   ;; Commonly used libraries. Importing nothing from them still makes them

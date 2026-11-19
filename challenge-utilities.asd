@@ -21,6 +21,7 @@
                "challenge-utilities/test/numbers"
                "challenge-utilities/test/point-2d"
                "challenge-utilities/test/queue"
+               "challenge-utilities/test/rect-2d"
                "challenge-utilities/test/screen"
                "challenge-utilities/test/sqlite")
   :perform (test-op (o c) (uiop:symbol-call :fiveam :run! :challenge-utilities)))
