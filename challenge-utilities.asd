@@ -17,6 +17,7 @@
                "challenge-utilities/test/count-letters"
                "challenge-utilities/test/grid"
                "challenge-utilities/test/lists"
+               "challenge-utilities/test/matrix"
                "challenge-utilities/test/md5"
                "challenge-utilities/test/numbers"
                "challenge-utilities/test/point-2d"
