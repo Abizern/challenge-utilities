@@ -1,6 +1,7 @@
 (uiop:define-package :challenge-utilities/all
   (:nicknames :challenge-utilities :c-utils)
   (:use :cl)
+  (:use-reexport :challenge-utilities/comparison)
   (:use-reexport :challenge-utilities/count-letters)
   (:use-reexport :challenge-utilities/grid)
   (:use-reexport :challenge-utilities/lists)

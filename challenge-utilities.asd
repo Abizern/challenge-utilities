@@ -14,6 +14,7 @@
   :description "Tests for the challenge-utilities system"
   :class :package-inferred-system
   :depends-on ("challenge-utilities/test/suite"
+               "challenge-utilities/test/comparison"
                "challenge-utilities/test/count-letters"
                "challenge-utilities/test/grid"
                "challenge-utilities/test/lists"
